@@ -6,6 +6,6 @@ function buildMetadata(sample) {
       var result= resultsarray[0]
       var panel = d3.select("#sample-metadata");
       panel.html("");
-      Object.entries(result).forEach(([key, value]) => {
+      Object.entries(result).forEach([key, value]) => {
         panel.append("h6").text(`${key}: ${value}`);
-      });
+      };
