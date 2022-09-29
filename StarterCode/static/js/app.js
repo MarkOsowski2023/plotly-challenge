@@ -1,5 +1,5 @@
 // Start function
-function dashboardPlots() {
+function dashboardPlots(id) {
     
     let url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
     
@@ -20,7 +20,7 @@ function dashboardPlots() {
         var OTU_id = top_OTU.map(d => "OTU" + d);
         console.log('OTU Ids: ${OTU_id}');
 
-        var top_labels = samples.out_labels.slice(0, 10);
+        var top_labels = samples.otu_labels.slice(0, 10);
 
         var washfreq = data.metadata.map(d => d.washfreq);
         console.log("Wash Frequency: ${washfreq}");
@@ -151,16 +151,19 @@ function init() {
 
     // read the data 
     d3.json(url).then((data)=> {
-        console.log(data);
+        var metadata = data.metadata;
+        console.log(metadata);
+
+        var id = metadata.filter(mdata => mdata.id.toString() === id)[0];
 
         // get the id data to the dropdwown menu
-        data.names.forEach(function(name) {
-            dropdown.append("option").text(name).property("value");
+        data.names.forEach(function(names) {
+            dropdown.append("option").text(names).property("value");
         });
 
         // call the functions to display the data and the plots to the page
-        dashboardPlots(data.names[0]);
-        getDATA(data.names[0]);
+        dashboardPlots(id);
+        getDATA(id);
     });
 }
 
